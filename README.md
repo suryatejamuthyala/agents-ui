@@ -1,69 +1,73 @@
-# React + TypeScript + Vite
+# Agents UI (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A three‑pane Agent interface showcasing multiple agent types and a Claude‑like message history experience. The app includes:
 
-Currently, two official plugins are available:
+- Left pane: Agents displayed as selectable cards (with emoji, color, description)
+- Middle pane: Dynamic workspace that switches between Chat, Form, or Markdown Notebook depending on the selected agent
+- Right pane: Previous messages for the current agent with per‑message version history (similar to Claude "History")
+- Full Markdown rendering in the middle pane using the `marked` library
+- Light/Dark theme toggle in the top bar with persistence via `localStorage`
+- Seeded, realistic fake data for agents, conversations, messages, and versions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project was bootstrapped with Vite and uses React + TypeScript.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Three vertical sections (Agents • Workspace • History)
+- Agent types: `chat`, `form`, and `notebook`
+  - Chat: threaded conversation + composer with Markdown
+  - Form: simple data collection + live Markdown preview
+  - Notebook: Markdown editor with live preview and save
+- Markdown support everywhere relevant (code blocks, lists, headings, etc.) via `marked`
+- Message “versions” panel for quick comparison of alternative responses
+- Theme switcher (Dark/Light) with `data-theme` on `<html>` and persistence to `localStorage`
+- Responsive layout hides the right pane on smaller screens
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React 19
+- TypeScript 5
+- Vite 7
+- marked 12 (Markdown renderer)
+- Minimal CSS (no UI framework)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Quick start
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Prerequisites: Node.js 18+ and npm.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Install dependencies: `npm install`
+- Start dev server: `npm run dev`
+- Build for production: `npm run build`
+- Preview production build: `npm run preview`
+- Lint: `npm run lint`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The dev server will print a local URL (usually http://localhost:5173).
+
+## Where things live
+
+- `src/App.tsx` — Main UI: three‑pane layout, theme toggle, agent logic, seeded fake data
+  - Edit `fakeAgents` and `seedConversations` to change the demo data
+- `src/App.css` — Layout and component styles for the three panes
+- `src/index.css` — App‑wide styles and explicit dark/light theme rules using `:root[data-theme]`
+- `src/main.tsx` — App bootstrap
+- `index.html` — Vite HTML entry
+
+## Theming
+
+- Toggle button is in the middle header (top right)
+- Theme value (`"light" | "dark"`) is stored in `localStorage` key `theme`
+- The active theme is applied to `<html>` as `data-theme="light" | "dark"`
+
+## Markdown
+
+- Rendering is powered by `marked`
+- Code fences, headings, lists, and blockquotes are supported; styles are in `App.css`
+
+## Notes
+
+- This is a front‑end demo with mock data—no backend is included
+- The UI is responsive; on narrow viewports the right history pane is hidden
+
+## License
+
+No license has been specified. Use at your own discretion for demos and experimentation.
