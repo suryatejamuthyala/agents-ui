@@ -1,5 +1,5 @@
-.app {
-  display: grid;
+/* All styles are now provided by @ag-ui/core and @ag-ui/client components. */
+/* This file can be removed or left empty. */
   grid-template-columns: 280px 1fr 360px;
   height: 100vh;
   max-width: none;
